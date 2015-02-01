@@ -1,0 +1,4 @@
+.modal-dialog a.modal-close {
+	position: absolute;
+	top: 0px; right: 5px;
+}
