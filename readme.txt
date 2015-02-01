@@ -16,17 +16,23 @@ Provides ease of Bootstrap Modals management. A lot of options and ease of exten
 
 You could easily create Bootstrap Modals.
 
-It requires only: 
-1. Fill the Content section with needed data.
-1. Provide call Selector (See "Usage" -> "Options" -> "Call Selector").
+It requires only:
 
-For content editing you may use WP WYSIWYG editor. Also you could use shortcodes to add form from CF7, for example.
+1. Fill the Content section with needed data.
+2. Provide call Selector (See "Usage" -> "Options" -> "Call Selector").
+
+You may use all features of standard WP WYSIWYG editor for creating Modal content. E.g.: CF7 shortcodes to show the form.
 
 == Installation ==
 
 1. Upload `sbmodal` to the `/wp-content/plugins/` directory.
 1. Activate the plugin through the 'Plugins' menu in WordPress.
 1. GOTO Usage.
+
+== Screenshots ==
+
+1. Modal edit page.
+2. Modal in action.
 
 == Usage ==
 
@@ -52,10 +58,11 @@ For content editing you may use WP WYSIWYG editor. Also you could use shortcodes
 *	sbmodal_width_classes - array of modal width classes ('modal-width-class' => __('Class Name', 'sbmodal'), ...).
 
 
-== Screenshots ==
-1. Modal edit page.
-2. Modal in action.
-
 == Changelog ==
 
-= 1.0 * Initial release.
+= 1.1 =
+* Readme.txt updated.
+* Screenshots added.
+
+= 1.0 =
+* Initial release.
