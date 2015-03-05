@@ -41,12 +41,20 @@ class SBModal {
 }
 
 class SBModalAdmin extends SBModal {
+	private $_options_page;
+	
 	public function init() {
 		$this->post_types()->register();
+		$this->_options_page();
+	}
+
+	private function _options_page() {
+		$this->_options_page = new SBModalOptionsPage();
 	}
 }
 
 class SBModalFront extends SBModal {
+	private $_assets;
 	private $_view;
 	
 	public function init() {

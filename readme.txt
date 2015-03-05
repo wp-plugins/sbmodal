@@ -2,8 +2,8 @@
 Contributors: sevenbytes
 Tags: modal, bootstrap, pop ups, bootstrap popup
 Requires at least: 4.0.1
-Tested up to: 4.1
-Stable tag: 1.0
+Tested up to: 4.1.1
+Stable tag: 1.2
 Plugin Name: SBModal
 Plugin URI: http://sbmodal.seven-bytes.com/
 Description: Ease usage of Bootstrap Modals in WordPress
@@ -33,8 +33,19 @@ You may use all features of standard WP WYSIWYG editor for creating Modal conten
 
 1. Modal edit page.
 2. Modal in action.
+3. Options Page
 
 == Usage ==
+
+= Plugin Settings =
+
+**Enqueue bootstrap.js** (Yes or NO) - If you using `bootstrap.min.js` in your own theme (or plugin), use this option to remove this script from SBModal queue.
+
+**Enqueue Bootstrap CSS Style**:
+
+*	*Full Bootstrap.css* - Complete `bootstrap.min.css`.
+*	*Styles ONLY for Modal* - Enqueue Bootstrap styles only for Modal.
+*	*Do NOT Load CSS* - Do not load any Bootstrap styles.
 
 = Create Modal =
 
@@ -59,6 +70,11 @@ You may use all features of standard WP WYSIWYG editor for creating Modal conten
 
 
 == Changelog ==
+
+= 1.2 =
+* Added setting page.
+* Available to enqueue bootstrap styles only for Modal Component.
+* Screenshots updated.
 
 = 1.1 =
 * Readme.txt updated.
