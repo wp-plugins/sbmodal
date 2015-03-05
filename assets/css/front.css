@@ -1,0 +1,24 @@
+.modal .modal-body {
+	position: relative;
+	z-index: 1;
+}
+
+.modal .modal-dialog a.modal-close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 2;
+	display: block;
+	width: 24px;
+	height: 24px;
+	text-indent: -9999px;
+	overflow: hidden;
+	opacity: .6;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABGklEQVRIS+2Uuw3CQBBE7RhICQjIKQAJ8RFV8G+AgE+CRMSvAKoAeqAIEiJiGgFmwScd1t3tJA6QsDSyZe3Nu5tdO44yvuKM/aM/QE3YFVERq5bQAnqqDp+CArSHxtDDXuPrQQdFLWhOQMT8BK2ga3pDoSYzkKC5wLQp6qKm6TmJas4ApMYFEfMjtHbFwvQgHaVApCczKJdkrpqzJzCwHh7aUAnaaDs3i7Qe2CeRWM7QHRoR0/VeywLshlaSuCYMhAHkHZn3WYgGEHOZFlfmA7yXEQ6eJAQQ8wO0DTRUIA1o6ovLB2DMzQAM8VD3QVwAmXPZ+Y4dxWSqarjLd/L1g/QByii8mS2S9yrqLgyA9OPKtCniXAJVvw94AQWkNhk8b/mzAAAAAElFTkSuQmCC);
+}
+
+.modal .modal-dialog a.modal-close:hover {
+	opacity: 1;
+}
