@@ -85,15 +85,10 @@ class SBModalFrontView {
 				$style = "max-width: {$max_width}px; ";
 			}
 		}
-?>
-		<div class="modal fade <?php echo $class; ?>" id="<?php echo $id; ?>" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog <?php echo $width; ?>" style="<?php echo $style; ?>">
-				<div class="modal-content">
-					<?php $this->renderTemplate( $template, $args ); ?>
-				</div>
-			</div>
-		</div>
-<?php
+
+		$args['style'] = $style;
+		
+		$this->renderTemplate( $template, $args );
 	}
 	
 	public function renderTemplate( $template, $args ) {
