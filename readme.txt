@@ -71,6 +71,9 @@ You may use all features of standard WP WYSIWYG editor for creating Modal conten
 
 == Changelog ==
 
+= 1.3 =
+* Move all parts of  Bootstrap Modal html markup into template files.
+
 = 1.2 =
 * Added setting page.
 * Available to enqueue bootstrap styles only for Modal Component.
