@@ -8,7 +8,7 @@ class SBModalOptions {
 		if ( is_null( self::$_defaults ) ) {
 			self::$_defaults = array(
 				'sbmodal_bootstrapjs' => 1,
-				'sbmodal_bootstrapcss' => 'full',
+				'sbmodal_bootstrapcss' => 'modal',
 			);
 		}
 

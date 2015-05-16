@@ -3,9 +3,9 @@
 Plugin Name: SBModal
 Plugin URI: http://sbmodal.seven-bytes.com/
 Description: Ease usage of Bootstrap Modals in WordPress
-Version: 1.3
+Version: 1.3.1
 Author: Seven Bytes
-Author URI: http://seven-bytes.com/
+Author URI: http://sbmodal.seven-bytes.com/
 License: MIT
 License URI: http://opensource.org/licenses/MIT
 */

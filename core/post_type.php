@@ -79,22 +79,31 @@ class SBModalPostTypes {
 	}
 	
 	function sb_modals_add_meta_box() {
-		$screens = array('sb_modals');
+		$screens = array( 'sb_modals' );
 
-		foreach ($screens as $screen) {
+		foreach ( $screens as $screen ) {
 			add_meta_box(
 				'sb_modals_options',
-				__('Options', 'sbuilder'),
-				array($this, 'sb_modals_options_meta_box_callback'),
+				__( 'Options', 'sbuilder' ),
+				array( $this, 'sb_modals_options_meta_box_callback' ),
 				$screen,
 				'side'
 			);
 
 			add_meta_box(
 				'sb_modals_footer',
-				__('Modal Footer', 'sbuilder'),
-				array($this, 'sb_modals_footer_meta_box_callback'),
+				__( 'Modal Footer', 'sbuilder' ),
+				array( $this, 'sb_modals_footer_meta_box_callback' ),
 				$screen
+			);
+
+			add_meta_box(
+				'sb_modal_helper',
+				__( 'How to use', 'sbuilder' ),
+				array( $this, 'sb_modals_helper_meta_box_callback' ),
+				$screen,
+				'normal',
+				'core'
 			);
 		}
 	}
@@ -115,6 +124,16 @@ class SBModalPostTypes {
 		
 ?>
 		<p>
+			<label for="sb_modals__id"><?php echo __('HTML ID', 'sbmodal'); ?></label>
+			<input type="text" name="sb_modals__id" id="sb_modals__id" value="<?php echo esc_attr($id); ?>" placeholder="MyModalID" size="30" />
+		</p>
+
+		<p>
+			<label for="sb_modals__class"><?php echo __('HTML Class', 'sbmodal'); ?></label>
+			<input type="text" name="sb_modals__class" id="sb_modals__class" value="<?php echo esc_attr($class); ?>" placeholder="my-modal-classname" size="30" />
+		</p>
+
+		<p>
 			<label for="sb_modals__template"><?php echo __('Template', 'sbmodal'); ?></label>
 			<select name="sb_modals__template" id="sb_modals__template">
 			<?php foreach( $this->_templates as $value => $label):
@@ -123,11 +142,6 @@ class SBModalPostTypes {
 				<option value="<?php echo $value; ?>" <?php echo $_checked; ?>><?php echo $label; ?></option>
 			<?php endforeach; ?>
 			</select>
-		</p>
-
-		<p>
-			<label for="sb_modals__call_selector"><?php echo __('Call Selector', 'sbmodal'); ?></label>
-			<input type="text" name="sb_modals__call_selector" id="sb_modals__call_selector" value="<?php echo esc_attr($call_selector); ?>" placeholder="[href='#myModal']" />
 		</p>
 
 		<p>
@@ -147,13 +161,8 @@ class SBModalPostTypes {
 		</p>
 
 		<p>
-			<label for="sb_modals__class"><?php echo __('Class', 'sbmodal'); ?></label>
-			<input type="text" name="sb_modals__class" id="sb_modals__class" value="<?php echo esc_attr($class); ?>" placeholder="my-modal-classname" size="30" />
-		</p>
-
-		<p>
-			<label for="sb_modals__id"><?php echo __('ID', 'sbmodal'); ?></label>
-			<input type="text" name="sb_modals__id" id="sb_modals__id" value="<?php echo esc_attr($id); ?>" placeholder="MyModalID" size="30" />
+			<label for="sb_modals__call_selector"><?php echo __('Custom jQuery Selector', 'sbmodal'); ?></label>
+			<input type="text" name="sb_modals__call_selector" id="sb_modals__call_selector" value="<?php echo esc_attr($call_selector); ?>" placeholder="[href='#myModal']" size="30" />
 		</p>
 <?php
 	}
@@ -190,7 +199,31 @@ class SBModalPostTypes {
 <?php
 	}
 
-	function sb_modals_save_meta_box_data( $post_id  ) {
+	function sb_modals_helper_meta_box_callback() {
+		global $post;
+
+		if ( empty( $post->ID ) ) {
+			return;
+		}
+
+		$modal_html_id = get_post_meta( $post->ID, 'sb_modals__id', true );
+		$modal_title = get_the_title( $post->ID );
+
+		if ( empty( $modal_title ) ) {
+			$modal_title = __( 'Modal', 'sbmodal' );
+		}
+
+		$input_value = "#{$modal_html_id}";
+		$example_input_value = "<a href=\"#{$modal_html_id}\">Click to open {$modal_title}</a>";
+?>
+<?php echo wpautop( esc_html( __( "Copy this code and paste it into link anchor", 'sbmodal' ) ) ); ?>
+<input type="text" onfocus="this.select();" readonly="readonly" class="wp-ui-text-highlight code" value="<?php echo esc_attr( $input_value ); ?>" size="40" />
+<?php echo wpautop( esc_html( __( "For example:", 'sbmodal' ) ) ); ?>
+<input type="text" onfocus="this.select();" readonly="readonly" class="wp-ui-text-highlight code" value="<?php echo esc_attr( $example_input_value ); ?>" size="40" style="width: 100%" />
+<?php
+	}
+
+	function sb_modals_save_meta_box_data( $post_id ) {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
@@ -226,7 +259,6 @@ class SBModalPostTypes {
 			'sb_modals__width',
 			'sb_modals__max_width',
 			'sb_modals__class',
-			'sb_modals__id',
 		);
 
 		foreach ( $fields as $field ) {
@@ -238,6 +270,16 @@ class SBModalPostTypes {
 				// Update the meta field in the database.
 				update_post_meta( $post_id, $field, $val );
 			}
+		}
+
+		if ( isset($_POST['sb_modals__id']) ) {
+			$val = sanitize_text_field( $_POST['sb_modals__id'] );
+
+			if ( empty( $val ) ) {
+				$val = 'OpenModal' . $post_id;
+			}
+
+			update_post_meta( $post_id, 'sb_modals__id', $val );
 		}
 
 		if ( isset($_POST['sb_modals__footer'])) {

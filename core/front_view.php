@@ -55,8 +55,14 @@ class SBModalFrontView {
 				'modal_content' => $modal_content,
 				'modal_footer' => $modal_footer,
 			) );
-			
-			$script_buff .= $this->generate_javascript( $call_selector, $id );
+
+			if ( !empty( $id ) ) {
+				$script_buff .= $this->generate_javascript( '[href=#' . $id . ']', $id );
+			}
+
+			if ( !empty($call_selector) ) {
+				$script_buff .= $this->generate_javascript( $call_selector, $id );
+			}
 		}
 		
 		wp_reset_query();
