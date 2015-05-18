@@ -127,11 +127,10 @@ class SBModalPostTypes {
 		$max_width = get_post_meta( $post->ID, 'sb_modals__max_width', true );
 		$class = get_post_meta( $post->ID, 'sb_modals__class', true );
 		$id = get_post_meta( $post->ID, 'sb_modals__id', true );
-		
 ?>
 		<p>
 			<label for="sb_modals__id"><?php echo __('HTML ID', 'sbmodal'); ?></label>
-			<input type="text" name="sb_modals__id" id="sb_modals__id" value="<?php echo esc_attr($id); ?>" placeholder="MyModalID" size="30" />
+			<input type="text" name="sb_modals__id" id="sb_modals__id" value="<?php echo esc_attr($id); ?>" placeholder="<?php echo 'OpenModal' . $post->ID; ?>" size="30" />
 		</p>
 
 		<p>
@@ -219,6 +218,9 @@ class SBModalPostTypes {
 			$modal_title = __( 'Modal', 'sbmodal' );
 		}
 
+		if ( empty( $modal_html_id ) ) {
+			$modal_html_id = 'OpenModal' . $post->ID;
+		}
 		$input_value = "#{$modal_html_id}";
 		$example_input_value = "<a href=\"#{$modal_html_id}\">Click to open {$modal_title}</a>";
 ?>
@@ -296,6 +298,12 @@ class SBModalPostTypes {
 	public function action_posts_columns( $column, $post_id ) {
 		if ( strcmp( $column, 'modal_helper' ) === 0 ) {
 			$id = get_post_meta( $post_id, 'sb_modals__id', true );
+
+			if ( empty( $id ) ) {
+				$id = 'OpenModal' . $post_id;
+				update_post_meta( $post_id, 'sb_modals__id', $id );
+			}
+			
 			$input_value = "#{$id}";
 			echo '<input type="text" onfocus="this.select();" readonly="readonly" class="wp-ui-text-highlight code" value="' . esc_attr( $input_value ) . '" size="40" />';
 		}
