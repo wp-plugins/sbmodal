@@ -76,6 +76,12 @@ class SBModalPostTypes {
 		
 		add_action( 'add_meta_boxes', array($this, 'sb_modals_add_meta_box') );
 		add_action( 'save_post', array($this, 'sb_modals_save_meta_box_data') );
+
+		# 
+		add_action( 'manage_sb_modals_posts_custom_column', array( $this, 'action_posts_columns' ), 10, 2 );
+
+		# 
+		add_filter( 'manage_sb_modals_posts_columns', array( $this, 'filter_posts_columns' ) );
 	}
 	
 	function sb_modals_add_meta_box() {
@@ -287,5 +293,26 @@ class SBModalPostTypes {
 		}
 	}
 
+	public function action_posts_columns( $column, $post_id ) {
+		if ( strcmp( $column, 'modal_helper' ) === 0 ) {
+			$id = get_post_meta( $post_id, 'sb_modals__id', true );
+			$input_value = "#{$id}";
+			echo '<input type="text" onfocus="this.select();" readonly="readonly" class="wp-ui-text-highlight code" value="' . esc_attr( $input_value ) . '" size="40" />';
+		}
+	}
+
+	public function filter_posts_columns( $columns ) {
+		unset( $columns['date'] );
+
+		return array_merge(
+					$columns,
+					array(
+						'modal_helper' => __( 'Inset into Link Anchor', 'sbmodal' ),
+                    	'date' =>__( 'Date' ),
+					)
+				);
+
+		return $columns;
+	}
 
 }
